@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <title>紫砂壶定制预览</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.159.0/build/three.module.js",
+      "three/examples/jsm/": "https://unpkg.com/three@0.159.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <div id="sidebar">
+      <div class="model-btns">
+        <button data-model="models/model1.glb">模型 1</button>
+        <button data-model="models/model2.glb">模型 2</button>
+        <button data-model="models/model3.glb">模型 3</button>
+      </div>
+      <hr />
+      <!-- 新增：颜色选择区域 -->
+      <div class="color-area">
+        <p>选择壶身材质：</p>
+        <button class="color-btn" data-color="#cc0000">红色</button>
+        <button class="color-btn" data-color="#0000cc">蓝色</button>
+        <button class="color-btn" data-color="#009933">绿色</button>
+      </div>
+      <hr />
+      <!-- 图案选择区 -->
+      <div class="pattern-area">
+        <div class="pattern-item">
+          <button class="pattern-btn" data-pattern="patterns/A.png">图案 A</button>
+          <img src="patterns/A.png" alt="图案A" class="pattern-preview" />
+        </div>
+        <div class="pattern-item">
+          <button class="pattern-btn" data-pattern="patterns/B.png">图案 B</button>
+          <img src="patterns/B.png" alt="图案B" class="pattern-preview" />
+        </div>
+        <div class="pattern-item">
+          <button class="pattern-btn" data-pattern="patterns/C.png">图案 C</button>
+          <img src="patterns/C.png" alt="图案C" class="pattern-preview" />
+        </div>
+        <div class="pattern-item">
+          <button class="pattern-btn" data-pattern="patterns/D.png">图案 D</button>
+          <img src="patterns/D.png" alt="图案D" class="pattern-preview" />
+        </div>
+      </div>
+    </div>
+    <div id="viewer"></div>
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
