@@ -1,10 +1,8 @@
-name: Deploy main and dev
+name: Deploy with Jekyll main and dev
 
 on:
   push:
-    branches:
-      - main
-      - dev
+    branches: [main, dev]
   workflow_dispatch:
 
 permissions:
@@ -21,35 +19,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout (full history for branch switching)
+      - name: Checkout main
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          ref: main
+          path: main
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Checkout dev
+        uses: actions/checkout@v4
         with:
-          ruby-version: 3.2
-          bundler-cache: true
+          ref: dev
+          path: dev
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Build main + dev
+      # === main ===
+      - name: Build main with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./main
+          destination: ./output
+
+      # === dev ===
+      - name: Build dev with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./dev
+          destination: ./output/dev
+
+      - name: Finalize
         run: |
-          mkdir output
-
-          # === build main ===
-          git checkout main
-          bundle install
-          bundle exec jekyll build -d output
-
-          # === build dev ===
-          git checkout dev
-          bundle exec jekyll build -d output/dev --baseurl "/dev"
-
-          # === finalize ===
-          rm -rf _site
           mv output _site
 
       - name: Upload artifact
@@ -64,6 +64,6 @@ jobs:
     needs: build
 
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
