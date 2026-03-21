@@ -12,6 +12,7 @@ html, body {
 
 #sidebar {
   width: 400px;
+  flex: none;
   background: #f7f7f7;
   padding: 12px;
   box-sizing: border-box;
