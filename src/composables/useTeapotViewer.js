@@ -17,6 +17,7 @@ export function createTeapotViewer(container) {
   let animationId = 0;
 
   const scene = new THREE.Scene();
+  // 初始背景色 - 将由 useTheme 控制
   scene.background = new THREE.Color(0xf0f0f0);
 
   const camera = new THREE.PerspectiveCamera(
@@ -270,6 +271,14 @@ export function createTeapotViewer(container) {
     mainMesh = null;
   }
 
+  function setBackgroundColor(isDark) {
+    if (isDark) {
+      scene.background = new THREE.Color(0x1a1a1a);
+    } else {
+      scene.background = new THREE.Color(0xf0f0f0);
+    }
+  }
+
   return {
     loadModel,
     changeModelColor,
@@ -278,6 +287,7 @@ export function createTeapotViewer(container) {
     clearDecals,
     syncDecalState,
     dispose,
-    onResize
+    onResize,
+    setBackgroundColor
   };
 }
