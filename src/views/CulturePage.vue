@@ -54,6 +54,9 @@
       <section class="culture-content">
         <RouterView />
       </section>
+
+      <!-- AI 助手面板 -->
+      <AIAssistant />
     </div>
   </main>
 </template>
@@ -62,6 +65,7 @@
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { potTypes, textures } from '../data/cultureData.js';
+import AIAssistant from '../components/AIAssistant.vue';
 
 const route = useRoute();
 
