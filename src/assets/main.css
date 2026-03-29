@@ -278,35 +278,63 @@ html, body {
 }
 
 .culture-h1 {
-  margin: 0 0 12px;
-  font-size: 22px;
-  font-weight: 600;
-  color: #222;
+  margin: 0 0 16px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #3c2f2a;
+  letter-spacing: -0.5px;
+  border-bottom: 3px solid #d4b89e;
+  padding-bottom: 12px;
 }
 
 .culture-h2 {
-  margin: 0 0 12px;
-  font-size: 17px;
-  font-weight: 600;
-  color: #333;
+  margin: 32px 0 14px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #3c2f2a;
+  position: relative;
+}
+
+.culture-h2::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(to right, #d4b89e, #b38a5e);
+  border-radius: 3px;
 }
 
 .culture-h3 {
-  margin: 0 0 8px;
-  font-size: 15px;
+  margin: 0 0 10px;
+  font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: #3c2f2a;
 }
 
 .culture-lead {
-  margin: 0 0 20px;
-  font-size: 14px;
-  line-height: 1.6;
-  color: #555;
+  margin: 0 0 28px;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: #5c4638;
+  font-weight: 400;
 }
 
 .culture-section {
-  margin-bottom: 8px;
+  margin-bottom: 32px;
+}
+
+.culture-p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #5c4638;
+  margin-bottom: 16px;
+}
+
+.culture-p--muted {
+  color: #8a6f5c;
+  font-size: 14px;
 }
 
 .culture-p {
@@ -342,29 +370,47 @@ html, body {
 }
 
 .culture-card {
-  background: #f7f7f7;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 12px;
-  box-sizing: border-box;
+  background: white;
+  border: 1px solid #e8d9c2;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.culture-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  border-color: #d4b89e;
 }
 
 .culture-card__media {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  margin-bottom: 10px;
+  margin-bottom: 16px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f8f4ed;
+  min-height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 120px;
+  padding: 12px;
+  border: 1px solid #f0e6d9;
 }
 
 .culture-card__img {
   max-width: 100%;
-  max-height: 140px;
+  max-height: 240px;
   object-fit: contain;
   display: block;
+  transition: transform 0.4s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.culture-card:hover .culture-card__img {
+  transform: scale(1.03);
 }
 
 .culture-foot {
@@ -398,18 +444,22 @@ html, body {
 .culture-sidebar {
   width: 280px;
   flex: none;
-  background: #f7f7f7;
-  border-right: 1px solid #ddd;
-  padding: 14px 12px;
+  background: #f8f4ed;
+  border-right: 1px solid #e8d9c2;
+  padding: 20px 16px;
   box-sizing: border-box;
   overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
 }
 
 .culture-sidebar__title {
-  margin: 0 0 12px;
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
+  margin: 0 0 20px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #3c2f2a;
+  letter-spacing: 0.5px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #d4b89e;
 }
 
 .culture-menu-group {
@@ -431,18 +481,23 @@ html, body {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 8px;
-  padding: 8px 10px;
-  font-size: 14px;
+  padding: 12px 14px;
+  font-size: 14.5px;
   font-weight: 600;
-  color: #444;
+  color: #3c2f2a;
   background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: 1px solid #d4b89e;
+  border-radius: 8px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
 }
 
 .culture-menu-toggle:hover {
-  background: #fdfdfd;
+  background: #fffaf0;
+  border-color: #c9a77f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .culture-menu-toggle__icon {
@@ -457,24 +512,30 @@ html, body {
 .culture-menu-link {
   display: block;
   margin-bottom: 8px;
-  padding: 8px 10px;
-  color: #444;
+  padding: 10px 14px;
+  color: #3c2f2a;
   text-decoration: none;
   background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: 1px solid #e8d9c2;
+  border-radius: 8px;
   font-size: 14px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
 }
 
 .culture-menu-link:hover {
-  background: #fdfdfd;
+  background: #fffaf0;
+  border-color: #c9a77f;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
 }
 
 .culture-menu-link--active {
-  border-color: #bbb;
+  border-color: #b38a5e;
+  background: #fffaf0;
   font-weight: 600;
-  color: #222;
-  background: #fff;
+  color: #3c2f2a;
+  box-shadow: 0 2px 8px rgba(179, 138, 94, 0.15);
 }
 
 .culture-content {
@@ -482,6 +543,13 @@ html, body {
   min-width: 0;
   min-height: 0;
   overflow-y: auto;
+  background: #fbf8f2;
+  padding: 24px;
+}
+
+.culture-inner {
+  max-width: 920px;
+  margin: 0 auto;
 }
 
 .culture-inner--detail {
@@ -505,7 +573,8 @@ html, body {
 }
 
 .culture-grid--2col {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
 }
 
 .culture-back--menu {

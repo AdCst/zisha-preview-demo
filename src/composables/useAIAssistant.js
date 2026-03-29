@@ -19,7 +19,11 @@ export function useAIAssistant() {
 - 壶型：${Object.values(aiKnowledge.potTypes).join('；')}
 - 纹理：梅-坚韧希望；兰-高洁谦和；竹-虚心气节；菊-淡泊坚守。
 
-请用专业且优雅的语言回答紫砂相关问题。`
+回答要求：
+- 使用简洁自然的语言，不要使用 Markdown 格式（不要用**、#、-等符号）
+- 直接用纯文本回答，段落之间用换行分隔
+- 保持优雅但不要过度使用古文
+- 回答要清晰、有条理`
     };
   };
 
@@ -71,11 +75,14 @@ export function useAIAssistant() {
       }
 
       const data = await response.json();
-      const aiResponse = data.choices?.[0]?.message?.content;
+      let aiResponse = data.choices?.[0]?.message?.content;
 
       if (!aiResponse) {
         throw new Error('AI 未返回有效内容');
       }
+
+      // 清理 Markdown 格式和多余符号
+      aiResponse = cleanAIResponse(aiResponse);
 
       return aiResponse;
 
@@ -86,6 +93,22 @@ export function useAIAssistant() {
     } finally {
       isLoading.value = false;
     }
+  };
+
+  // 清理 AI 输出中的 Markdown 和多余格式
+  const cleanAIResponse = (text) => {
+    return text
+      // 移除 Markdown 粗体
+      .replace(/\*\*(.*?)\*\*/g, '$1')
+      // 移除 Markdown 标题
+      .replace(/^#{1,6}\s+/gm, '')
+      // 移除列表标记
+      .replace(/^[-*+]\s+/gm, '')
+      // 移除多余的空格和换行
+      .replace(/\n{3,}/g, '\n\n')
+      // 清理其他特殊字符
+      .replace(/^\s+|\s+$/g, '')
+      .trim();
   };
 
   return {

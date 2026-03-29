@@ -39,6 +39,7 @@
           </div>
           <div class="ai-message__content">
             {{ msg.content }}
+            <span v-if="msg.isTyping" class="typing-cursor">|</span>
           </div>
         </div>
         
@@ -159,6 +160,40 @@ const addMessage = (type, content) => {
   scrollToBottom();
 };
 
+// 流式打字效果
+const typeWriter = (fullText, callback) => {
+  const typingIndex = messages.value.length;
+  
+  // 添加一个空的打字消息
+  messages.value.push({
+    type: 'assistant',
+    content: '',
+    isTyping: true
+  });
+  
+  scrollToBottom();
+
+  let index = 0;
+  const speed = 22; // 打字速度（毫秒/字符），稍微调慢一点更自然
+
+  const type = () => {
+    if (index < fullText.length) {
+      // 使用 Vue 的响应式更新方式
+      messages.value[typingIndex].content = fullText.substring(0, index + 1);
+      index++;
+      scrollToBottom();
+      setTimeout(type, speed);
+    } else {
+      // 打字完成
+      messages.value[typingIndex].isTyping = false;
+      if (callback) callback();
+      scrollToBottom();
+    }
+  };
+
+  type();
+};
+
 const sendMessage = async () => {
   const text = inputMessage.value.trim();
   if (!text || isLoading.value) return;
@@ -168,7 +203,11 @@ const sendMessage = async () => {
 
   try {
     const response = await callDeepSeek(text, messages.value);
-    addMessage('assistant', response);
+    
+    // 使用打字动画显示 AI 回答
+    typeWriter(response, () => {
+      scrollToBottom();
+    });
   } catch (err) {
     addMessage('assistant', `抱歉，出错了：${err.message}`);
   }
@@ -473,5 +512,20 @@ defineExpose({
 .ai-resize-handle:hover::after,
 .ai-resize-handle:active::after {
   opacity: 0.6;
+}
+
+/* 打字动画光标 */
+.typing-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: blink 0.7s step-end infinite;
+  color: #8d5524;
+  font-weight: bold;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 </style>
