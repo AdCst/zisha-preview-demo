@@ -215,7 +215,7 @@ function configureTexture(texture, colorSpace) {
   // } else {
   //   texture.minFilter = THREE.LinearMipmapLinearFilter;
   // }
-
+  texture.generateMipmaps = true;
   texture.minFilter = THREE.LinearMipmapLinearFilter;
 
   texture.needsUpdate = true;
